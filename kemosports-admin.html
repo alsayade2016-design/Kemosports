@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KemoSports — لوحة التحكم</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #F5F7FA; --white: #FFFFFF; --text: #0D1117;
+  --muted: #8896A5; --border: #E8ECF0; --accent: #1A6BFF;
+  --accent2: #FF3B30; --green: #00C853;
+  --shadow: 0 2px 20px rgba(0,0,0,0.06);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.1);
+}
+body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ── LOGIN SCREEN ── */
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--bg);
+}
+
+.login-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: fadeUp 0.6s ease-out both;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), #60A5FA);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.login-icon {
+  width: 70px; height: 70px;
+  background: linear-gradient(135deg, #EEF4FF, #DBEAFE);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 8px 24px rgba(26,107,255,0.15);
+}
+
+.login-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.5px;
+}
+
+.login-title span { color: var(--accent); }
+
+.login-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.login-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  text-align: right;
+}
+
+.login-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.login-input-wrap { position: relative; }
+
+.login-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem 0.85rem 3rem;
+  color: var(--text);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 3px;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(26,107,255,0.08);
+}
+
+.login-input::placeholder { letter-spacing: 1px; color: var(--muted); opacity: 0.6; font-size: 0.85rem; }
+
+.toggle-pass {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.toggle-pass:hover { color: var(--accent); }
+
+.login-btn {
+  width: 100%;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 10px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(26,107,255,0.3);
+  margin-bottom: 1rem;
+}
+
+.login-btn:hover {
+  background: #0055DD;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26,107,255,0.35);
+}
+
+.login-error {
+  background: rgba(255,59,48,0.08);
+  border: 1px solid rgba(255,59,48,0.2);
+  color: var(--accent2);
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: none;
+}
+
+.login-error.show { display: block; }
+
+.login-footer-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ── ADMIN PANEL (hidden by default) ── */
+.admin-panel { display: none; }
+
+.topbar {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 2.5rem; height: 64px; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 50;
+  box-shadow: var(--shadow);
+}
+.top-logo { display: flex; align-items: center; gap: 0.75rem; font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text); }
+.top-logo span { color: var(--accent); }
+.top-badge { background: var(--bg); border: 1px solid var(--border); color: var(--muted); font-family: 'Tajawal', sans-serif; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 50px; letter-spacing: 1px; }
+.top-actions { display: flex; gap: 0.75rem; }
+
+.btn-logout { display: flex; align-items: center; gap: 0.4rem; background: var(--bg); border: 1px solid var(--border); color: var(--muted); padding: 0.5rem 1.1rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-logout:hover { border-color: rgba(255,59,48,0.3); color: var(--accent2); }
+
+.btn-view { display: flex; align-items: center; gap: 0.4rem; background: var(--bg); border: 1px solid var(--border); color: var(--muted); padding: 0.5rem 1.1rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-view:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn-save-all { display: flex; align-items: center; gap: 0.4rem; background: var(--accent); color: white; border: none; padding: 0.5rem 1.4rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.85rem; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(26,107,255,0.3); }
+.btn-save-all:hover { background: #0055DD; transform: translateY(-1px); }
+
+.main { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+.page-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+.page-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; margin-bottom: 0.3rem; }
+.page-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; }
+
+.guide { background: rgba(26,107,255,0.05); border: 1px solid rgba(26,107,255,0.15); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; gap: 1rem; }
+.guide-icon { font-size: 1.3rem; flex-shrink: 0; }
+.guide-title { font-size: 0.82rem; font-weight: 800; color: var(--accent); margin-bottom: 0.5rem; }
+.guide-steps { display: flex; flex-direction: column; gap: 0.35rem; }
+.guide-step { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.step-num { width: 18px; height: 18px; background: rgba(26,107,255,0.1); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+
+.channels-list { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.ch-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); transition: all 0.25s; }
+.ch-card:hover { box-shadow: var(--shadow-lg); border-color: rgba(26,107,255,0.15); }
+.ch-stripe { height: 3px; background: var(--border); transition: background 0.3s; }
+.ch-card.active .ch-stripe { background: linear-gradient(90deg, var(--accent), #60A5FA); }
+.ch-header { padding: 1.25rem 1.5rem 1rem; display: flex; align-items: center; gap: 1.25rem; border-bottom: 1px solid var(--border); }
+.ch-num { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--border); line-height: 1; letter-spacing: -2px; flex-shrink: 0; transition: color 0.3s; }
+.ch-card.active .ch-num { color: var(--accent); opacity: 0.3; }
+.ch-info { flex: 1; }
+.ch-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--text); }
+.ch-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
+.ch-status { display: flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; padding: 0.35rem 0.85rem; border-radius: 50px; transition: all 0.3s; }
+.status-live { background: rgba(255,59,48,0.08); border: 1px solid rgba(255,59,48,0.2); color: var(--accent2); }
+.status-off { background: var(--bg); border: 1px solid var(--border); color: var(--muted); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.status-dot.pulse { animation: blink 1s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.ch-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.form-input { background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem; color: var(--text); font-family: 'Tajawal', sans-serif; font-size: 0.88rem; width: 100%; transition: all 0.2s; }
+.form-input:focus { outline: none; border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(26,107,255,0.08); }
+.form-input::placeholder { color: var(--muted); opacity: 0.7; }
+.url-hint { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
+.url-hint code { background: var(--bg); border: 1px solid var(--border); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.68rem; color: var(--accent); }
+
+.preview { aspect-ratio: 16/7; background: var(--bg); border: 1.5px dashed var(--border); border-radius: 12px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; transition: border-color 0.3s; }
+.preview.active { border-style: solid; border-color: rgba(26,107,255,0.25); }
+.preview-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; color: var(--muted); }
+.preview-placeholder-icon { width: 48px; height: 48px; background: var(--white); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; box-shadow: var(--shadow); }
+.preview-placeholder-text { font-size: 0.75rem; font-weight: 600; }
+.preview iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+.ch-footer-bar { padding: 1rem 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg); }
+.btn-clear { display: flex; align-items: center; gap: 0.4rem; background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 0.45rem 1rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-clear:hover { border-color: rgba(255,59,48,0.3); color: var(--accent2); background: rgba(255,59,48,0.04); }
+.btn-save { display: flex; align-items: center; gap: 0.4rem; background: var(--accent); color: white; border: none; padding: 0.5rem 1.4rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.82rem; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(26,107,255,0.25); }
+.btn-save:hover { background: #0055DD; transform: translateY(-1px); }
+
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--text); color: white; border-radius: 50px; padding: 0.8rem 1.75rem; font-size: 0.85rem; font-weight: 700; box-shadow: 0 20px 60px rgba(0,0,0,0.2); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); z-index: 999; white-space: nowrap; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.err { background: var(--accent2); }
+
+@media (max-width: 600px) {
+  .topbar { padding: 0 1.25rem; }
+  .main { padding: 1.5rem 1.25rem; }
+  .top-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-icon">🔐</div>
+    <div class="login-title">Kemo<span>Sports</span></div>
+    <div class="login-sub">أدخل كلمة المرور للوصول للوحة التحكم</div>
+
+    <div class="login-group">
+      <label class="login-label">كلمة المرور</label>
+      <div class="login-input-wrap">
+        <input class="login-input" id="passInput" type="password" placeholder="••••••••••••" onkeydown="if(event.key==='Enter') doLogin()">
+        <button class="toggle-pass" onclick="togglePass()" id="toggleBtn">👁️</button>
+      </div>
+    </div>
+
+    <button class="login-btn" onclick="doLogin()">دخول ←</button>
+    <div class="login-error" id="loginError">❌ كلمة المرور غلط، حاول مرة ثانية</div>
+
+    <div class="login-footer-note">KemoSports Admin Panel · للمسؤولين فقط</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="adminPanel">
+  <div class="topbar">
+    <div class="top-logo">Kemo<span>Sports</span> <div class="top-badge">ADMIN</div></div>
+    <div class="top-actions">
+      <button class="btn-logout" onclick="logout()">🚪 خروج</button>
+      <button class="btn-view" onclick="window.open('index.html','_blank')">🌐 عرض الموقع</button>
+      <button class="btn-save-all" onclick="saveAll()">✓ حفظ الكل</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="page-eyebrow">⚽ إدارة القنوات</div>
+    <div class="page-title">لوحة التحكم</div>
+    <div class="page-sub">أضف رابط البث لكل قناة وبيظهر على الموقع فوراً.</div>
+
+    <div class="guide">
+      <div class="guide-icon">💡</div>
+      <div>
+        <div class="guide-title">كيف تضيف رابط البث؟</div>
+        <div class="guide-steps">
+          <div class="guide-step"><div class="step-num">1</div>روح على الموقع اللي فيه البث</div>
+          <div class="guide-step"><div class="step-num">2</div>انسخ رابط صفحة البث كاملاً</div>
+          <div class="guide-step"><div class="step-num">3</div>حطه في خانة "رابط البث" وبيشتغل فوراً ✅</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="channels-list" id="list"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PASS = 'M404698698m$';
+const KEY = 'kemosports_channels';
+const NAMES = ['الأولى', 'الثانية', 'الثالثة'];
+
+function doLogin() {
+  const val = document.getElementById('passInput').value;
+  if (val === PASS) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    render();
+  } else {
+    document.getElementById('loginError').classList.add('show');
+    document.getElementById('passInput').value = '';
+    document.getElementById('passInput').focus();
+    setTimeout(() => document.getElementById('loginError').classList.remove('show'), 3000);
+  }
+}
+
+function logout() {
+  document.getElementById('adminPanel').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('passInput').value = '';
+}
+
+function togglePass() {
+  const inp = document.getElementById('passInput');
+  const btn = document.getElementById('toggleBtn');
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+  else { inp.type = 'password'; btn.textContent = '👁️'; }
+}
+
+function get() { try { return JSON.parse(localStorage.getItem(KEY)) || [{},{},{}]; } catch { return [{},{},{}]; } }
+function set(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
+
+function previewChannel(i) {
+  const url = document.getElementById(`url_${i}`).value.trim();
+  const box = document.getElementById(`prev_${i}`);
+  const card = document.getElementById(`card_${i}`);
+  const status = document.getElementById(`status_${i}`);
+  if (url) {
+    box.innerHTML = `<iframe src="${url}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+    box.classList.add('active'); card.classList.add('active');
+    status.className = 'ch-status status-live';
+    status.innerHTML = `<div class="status-dot pulse"></div>مباشر`;
+  } else {
+    box.innerHTML = `<div class="preview-placeholder"><div class="preview-placeholder-icon">⚽</div><div class="preview-placeholder-text">أدخل الرابط للمعاينة</div></div>`;
+    box.classList.remove('active'); card.classList.remove('active');
+    status.className = 'ch-status status-off';
+    status.innerHTML = `<div class="status-dot"></div>غير مفعّل`;
+  }
+}
+
+function saveOne(i) {
+  const channels = get();
+  channels[i] = { title: document.getElementById(`tit_${i}`).value.trim(), url: document.getElementById(`url_${i}`).value.trim(), desc: document.getElementById(`des_${i}`).value.trim() };
+  set(channels); previewChannel(i);
+  showToast(`✅ تم حفظ القناة ${i+1}`);
+}
+
+function clearOne(i) {
+  const channels = get(); channels[i] = {}; set(channels);
+  ['tit','url','des'].forEach(f => document.getElementById(`${f}_${i}`).value = '');
+  previewChannel(i); showToast(`🗑️ تم مسح القناة ${i+1}`, true);
+}
+
+function saveAll() {
+  const channels = get();
+  [0,1,2].forEach(i => { channels[i] = { title: document.getElementById(`tit_${i}`).value.trim(), url: document.getElementById(`url_${i}`).value.trim(), desc: document.getElementById(`des_${i}`).value.trim() }; previewChannel(i); });
+  set(channels); showToast('✅ تم حفظ جميع القنوات!');
+}
+
+function render() {
+  const channels = get();
+  document.getElementById('list').innerHTML = channels.map((ch, i) => {
+    const on = ch.url && ch.url.trim();
+    return `
+    <div class="ch-card ${on ? 'active' : ''}" id="card_${i}">
+      <div class="ch-stripe"></div>
+      <div class="ch-header">
+        <div class="ch-num">0${i+1}</div>
+        <div class="ch-info">
+          <div class="ch-name">القناة ${NAMES[i]}</div>
+          <div class="ch-sub">البث المباشر · الموقع الرئيسي</div>
+        </div>
+        <div class="ch-status ${on ? 'status-live' : 'status-off'}" id="status_${i}">
+          <div class="status-dot ${on ? 'pulse' : ''}"></div>
+          ${on ? 'مباشر' : 'غير مفعّل'}
+        </div>
+      </div>
+      <div class="ch-body">
+        <div class="form-group">
+          <label class="form-label">عنوان المباراة</label>
+          <input class="form-input" id="tit_${i}" value="${ch.title||''}" placeholder="مثال: الهلال ضد النصر" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">رابط البث</label>
+          <input class="form-input" id="url_${i}" value="${ch.url||''}" placeholder="https://example.com/live/stream" type="text" oninput="previewChannel(${i})">
+          <div class="url-hint">الصق رابط البث المباشر — مثال: <code>https://example.com/embed/live</code></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">وصف مختصر</label>
+          <input class="form-input" id="des_${i}" value="${ch.desc||''}" placeholder="مثال: دوري روشن · الجولة 28" type="text">
+        </div>
+        <div class="preview ${on ? 'active' : ''}" id="prev_${i}">
+          ${on ? `<iframe src="${ch.url}" allow="autoplay; fullscreen" allowfullscreen></iframe>`
+               : `<div class="preview-placeholder"><div class="preview-placeholder-icon">⚽</div><div class="preview-placeholder-text">أدخل الرابط للمعاينة</div></div>`}
+        </div>
+      </div>
+      <div class="ch-footer-bar">
+        <button class="btn-clear" onclick="clearOne(${i})">🗑️ مسح القناة</button>
+        <button class="btn-save" onclick="saveOne(${i})">✓ حفظ القناة ${i+1}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function showToast(msg, err=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = `toast ${err?'err':''} show`;
+  clearTimeout(window._tt); window._tt = setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
