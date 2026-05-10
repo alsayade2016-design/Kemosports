@@ -156,8 +156,12 @@ footer { background: var(--white); border-top: 1px solid var(--border); padding:
   const db = getDatabase(app);
 
   onValue(ref(db, 'channels'), (snapshot) => {
-    const data = snapshot.val() || [{},{},{}];
-    const channels = Array.isArray(data) ? data : [data[0]||{}, data[1]||{}, data[2]||{}];
+    const data = snapshot.val() || {};
+    const channels = [
+      data[0] || data['0'] || {},
+      data[1] || data['1'] || {},
+      data[2] || data['2'] || {}
+    ];
     let live = 0;
 
     document.getElementById('grid').innerHTML = channels.map((ch, i) => {
