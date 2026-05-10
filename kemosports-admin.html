@@ -207,8 +207,12 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
 
   function loadData() {
     onValue(ref(db, 'channels'), (snapshot) => {
-      const data = snapshot.val();
-      if (data) channels = Array.isArray(data) ? data : [data[0]||{},data[1]||{},data[2]||{}];
+      const data = snapshot.val() || {};
+      channels = [
+        data[0] || data['0'] || {},
+        data[1] || data['1'] || {},
+        data[2] || data['2'] || {}
+      ];
       render();
     });
   }
