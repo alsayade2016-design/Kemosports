@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>KemoSports — بث مباشر</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -189,63 +192,6 @@ footer { background: var(--white); border-top: 1px solid var(--border); padding:
 
     document.getElementById('liveNum').textContent = live;
   });
-</script>
-</body>
-</html>    <div class="label-text">القنوات المباشرة</div>
-    <div class="label-line"></div>
-  </div>
-
-  <div class="channels" id="grid"></div>
-</div>
-
-<footer>
-  <div class="footer-logo">Kemo<span>Sports</span></div>
-  <div class="footer-copy">© 2026 KemoSports — جميع الحقوق محفوظة</div>
-</footer>
-
-<button class="admin-fab" onclick="window.open('kemosports-admin.html','_blank')" title="لوحة التحكم">⚙️</button>
-
-<script>
-const KEY = 'kemosports_channels';
-function get() { try { return JSON.parse(localStorage.getItem(KEY)) || [{},{},{}]; } catch { return [{},{},{}]; } }
-
-function render() {
-  const channels = get();
-  let live = 0;
-  document.getElementById('grid').innerHTML = channels.map((ch, i) => {
-    const n = i + 1;
-    const on = ch.url && ch.url.trim();
-    if (on) live++;
-    return `
-    <div class="ch ${on ? 'active' : ''}">
-      <div class="ch-stripe"></div>
-      <div class="ch-header">
-        <div class="ch-num">0${n}</div>
-        <div class="ch-info">
-          <div class="ch-name">${on ? (ch.title || 'قناة ' + n) : 'قناة ' + n}</div>
-          <div class="ch-desc">${on ? (ch.desc || 'بث مباشر · كرة القدم') : 'في انتظار البث...'}</div>
-        </div>
-        <div class="ch-badge">
-          ${on ? `<div class="badge-live"><div class="live-dot"></div>LIVE</div>` : `<div class="badge-soon">⏳ قريباً</div>`}
-        </div>
-      </div>
-      <div class="ch-player">
-        ${on
-          ? `<iframe src="${ch.url}" allow="autoplay; fullscreen" allowfullscreen></iframe>`
-          : `<div class="ch-empty"><div class="ch-empty-icon">⚽</div><div class="ch-empty-text">البث لم يبدأ بعد</div></div>`}
-      </div>
-      <div class="ch-footer">
-        <div class="ch-quality"><div class="quality-dot" style="${on ? '' : 'background:var(--border)'}"></div>${on ? 'HD · جودة عالية' : 'غير متاح'}</div>
-        <div class="ch-viewers">${on ? '👁 مباشر' : '—'}</div>
-      </div>
-    </div>`;
-  }).join('');
-  document.getElementById('liveNum').textContent = live;
-}
-
-window.addEventListener('storage', e => { if (e.key === KEY) render(); });
-setInterval(render, 8000);
-render();
 </script>
 </body>
 </html>
