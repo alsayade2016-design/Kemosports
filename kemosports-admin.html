@@ -254,28 +254,32 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
   }
 
   window.saveOne = async function(i) {
-    channels[i] = {
+    const ch = {
       title: document.getElementById(`tit_${i}`).value.trim(),
       url: document.getElementById(`url_${i}`).value.trim(),
       desc: document.getElementById(`des_${i}`).value.trim(),
     };
-    await set(ref(db, 'channels'), channels);
+    await set(ref(db, `channels/${i}`), ch);
+    channels[i] = ch;
     showToast(`✅ تم حفظ القناة ${i+1} — ظهر على الموقع!`);
   };
 
   window.clearOne = async function(i) {
+    await set(ref(db, `channels/${i}`), {});
     channels[i] = {};
-    await set(ref(db, 'channels'), channels);
     showToast(`🗑️ تم مسح القناة ${i+1}`, true);
   };
 
   window.saveAll = async function() {
-    channels = [0,1,2].map(i => ({
-      title: document.getElementById(`tit_${i}`).value.trim(),
-      url: document.getElementById(`url_${i}`).value.trim(),
-      desc: document.getElementById(`des_${i}`).value.trim(),
-    }));
-    await set(ref(db, 'channels'), channels);
+    for (let i = 0; i < 3; i++) {
+      const ch = {
+        title: document.getElementById(`tit_${i}`).value.trim(),
+        url: document.getElementById(`url_${i}`).value.trim(),
+        desc: document.getElementById(`des_${i}`).value.trim(),
+      };
+      await set(ref(db, `channels/${i}`), ch);
+      channels[i] = ch;
+    }
     showToast('✅ تم حفظ جميع القنوات!');
   };
 
