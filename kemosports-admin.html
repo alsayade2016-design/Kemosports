@@ -7,34 +7,37 @@
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Syne:wght@700;800&family=Barlow+Condensed:wght@600;700;900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
 :root {
-  --bg: #F0F4F8;
+  --bg: #0A0A0A;
+  --bg2: #111111;
+  --bg3: #1A1A1A;
+  --card: #141414;
+  --border: #2A2A2A;
+  --border2: #333333;
+  --gold: #D4AF37;
+  --gold2: #F0C040;
+  --gold3: #B8960C;
   --white: #FFFFFF;
-  --text: #0A0F1E;
-  --muted: #7A8BA0;
-  --border: #E2E8F0;
-  --accent: #2563EB;
-  --accent-light: #EFF6FF;
-  --accent2: #EF4444;
+  --text: #F0EDE8;
+  --muted: #666666;
+  --live: #FF3B30;
   --green: #10B981;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-  --shadow: 0 4px 24px rgba(0,0,0,0.07);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
-  --radius: 16px;
+  --shadow: 0 4px 30px rgba(0,0,0,0.5);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.7);
 }
-
+ 
 body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
+ 
 /* ── LOGIN ── */
 .login-screen {
   min-height: 100vh; display: flex;
   align-items: center; justify-content: center; padding: 2rem;
-  background: linear-gradient(145deg, #F0F4F8, #E8EDF5);
+  background: radial-gradient(ellipse at top, #1a1a1a 0%, #0A0A0A 60%);
 }
-
+ 
 .login-card {
-  background: var(--white);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 24px;
   padding: 3rem 2.5rem;
@@ -44,250 +47,198 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
   animation: fadeUp 0.6s ease-out both;
   position: relative; overflow: hidden;
 }
-
+ 
 .login-card::before {
   content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 4px;
-  background: linear-gradient(90deg, var(--accent), #60A5FA);
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold2), var(--gold));
 }
-
+ 
 @keyframes fadeUp { from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)} }
-
+ 
 .login-icon {
   width: 72px; height: 72px;
-  background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+  background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));
+  border: 1px solid rgba(212,175,55,0.2);
   border-radius: 20px;
   display: flex; align-items: center; justify-content: center;
   font-size: 2rem; margin: 0 auto 1.5rem;
-  box-shadow: 0 8px 24px rgba(37,99,235,0.15);
+  box-shadow: 0 8px 24px rgba(212,175,55,0.1);
 }
-
-.login-title { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); margin-bottom: 0.4rem; }
-.login-title span { color: var(--accent); }
+ 
+.login-title { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--white); margin-bottom: 0.4rem; }
+.login-title span { color: var(--gold); }
 .login-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
-
-.login-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; text-align: right; }
-.login-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-.login-input-wrap { position: relative; }
-.login-input { width: 100%; background: var(--bg); border: 1.5px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem 0.9rem 3rem; color: var(--text); font-family: 'Tajawal', sans-serif; font-size: 1rem; letter-spacing: 3px; transition: all 0.2s; text-align: center; }
-.login-input:focus { outline: none; border-color: var(--accent); background: white; box-shadow: 0 0 0 4px rgba(37,99,235,0.08); }
+ 
+.login-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; text-align: right; margin-bottom: 0.5rem; }
+.login-input-wrap { position: relative; margin-bottom: 1.25rem; }
+.login-input { width: 100%; background: var(--bg3); border: 1.5px solid var(--border2); border-radius: 12px; padding: 0.9rem 1rem 0.9rem 3rem; color: var(--white); font-family: 'Tajawal', sans-serif; font-size: 1rem; letter-spacing: 3px; transition: all 0.2s; text-align: center; }
+.login-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.1); }
 .login-input::placeholder { letter-spacing: 1px; color: var(--muted); opacity: 0.5; font-size: 0.85rem; }
-.toggle-pass { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--muted); transition: color 0.2s; }
-.toggle-pass:hover { color: var(--accent); }
-
-.login-btn { width: 100%; background: linear-gradient(135deg, var(--accent), #1D4ED8); color: white; border: none; padding: 0.95rem; border-radius: 12px; font-family: 'Tajawal', sans-serif; font-size: 1rem; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(37,99,235,0.35); margin-bottom: 1rem; }
-.login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.4); }
-.login-error { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2); color: var(--accent2); padding: 0.65rem 1rem; border-radius: 10px; font-size: 0.82rem; font-weight: 600; display: none; margin-bottom: 0.5rem; }
+.toggle-pass { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--muted); }
+ 
+.login-btn { width: 100%; background: linear-gradient(135deg, var(--gold), var(--gold3)); color: #000; border: none; padding: 0.95rem; border-radius: 12px; font-family: 'Tajawal', sans-serif; font-size: 1rem; font-weight: 900; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px rgba(212,175,55,0.3); margin-bottom: 1rem; letter-spacing: 1px; }
+.login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,175,55,0.4); }
+.login-error { background: rgba(255,59,48,0.08); border: 1px solid rgba(255,59,48,0.2); color: var(--live); padding: 0.65rem 1rem; border-radius: 10px; font-size: 0.82rem; font-weight: 600; display: none; margin-bottom: 0.5rem; }
 .login-error.show { display: block; }
 .login-note { font-size: 0.72rem; color: var(--muted); margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-
+ 
 /* ── ADMIN ── */
 .admin-panel { display: none; }
-
+ 
 .topbar {
-  background: var(--white);
+  background: var(--bg2);
   border-bottom: 1px solid var(--border);
   padding: 0 2.5rem; height: 66px;
   display: flex; align-items: center; justify-content: space-between;
   position: sticky; top: 0; z-index: 50;
-  box-shadow: var(--shadow-sm);
 }
-
-.top-logo { display: flex; align-items: center; gap: 0.75rem; font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text); }
-.top-logo span { color: var(--accent); }
-.top-badge { background: var(--accent-light); border: 1px solid rgba(37,99,235,0.2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 50px; letter-spacing: 1.5px; }
-
+ 
+.top-logo { display: flex; align-items: center; gap: 0.75rem; font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--white); }
+.top-logo span { color: var(--gold); }
+.top-badge { background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.2); color: var(--gold); font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 50px; letter-spacing: 1.5px; }
+ 
 .top-actions { display: flex; gap: 0.6rem; }
-
-.btn-sm { display: flex; align-items: center; gap: 0.4rem; padding: 0.48rem 1rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1.5px solid var(--border); background: var(--bg); color: var(--muted); }
-.btn-sm:hover { border-color: var(--muted); color: var(--text); }
-.btn-sm.danger:hover { border-color: rgba(239,68,68,0.3); color: var(--accent2); background: rgba(239,68,68,0.04); }
-.btn-sm.primary { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
-.btn-sm.primary:hover { background: #1D4ED8; border-color: #1D4ED8; transform: translateY(-1px); }
-
+ 
+.btn-sm { display: flex; align-items: center; gap: 0.4rem; padding: 0.48rem 1rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1.5px solid var(--border2); background: var(--bg3); color: var(--muted); }
+.btn-sm:hover { border-color: var(--border); color: var(--text); }
+.btn-sm.danger:hover { border-color: rgba(255,59,48,0.3); color: var(--live); }
+.btn-sm.primary { background: linear-gradient(135deg, var(--gold), var(--gold3)); color: #000; border-color: transparent; font-weight: 900; box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
+.btn-sm.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(212,175,55,0.4); }
+ 
 .main { max-width: 960px; margin: 0 auto; padding: 2.5rem 2rem; }
-
-.page-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
-.page-title { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; margin-bottom: 0.3rem; }
+ 
+.page-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; opacity: 0.8; }
+.page-title { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--white); letter-spacing: -0.5px; margin-bottom: 0.3rem; }
 .page-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 2.5rem; line-height: 1.7; }
-
-/* Info box */
-.info-box {
-  background: var(--accent-light);
-  border: 1px solid rgba(37,99,235,0.15);
-  border-radius: 14px; padding: 1.25rem 1.5rem;
-  margin-bottom: 2.5rem;
-  display: flex; gap: 1rem; align-items: flex-start;
-}
-
-.info-box-icon { font-size: 1.3rem; flex-shrink: 0; }
-.info-box-title { font-size: 0.82rem; font-weight: 800; color: var(--accent); margin-bottom: 0.4rem; }
-.info-box-steps { display: flex; flex-direction: column; gap: 0.3rem; }
+ 
+.info-box { background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.12); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem; display: flex; gap: 1rem; }
+.info-icon { font-size: 1.3rem; flex-shrink: 0; }
+.info-title { font-size: 0.82rem; font-weight: 800; color: var(--gold); margin-bottom: 0.4rem; }
+.info-steps { display: flex; flex-direction: column; gap: 0.3rem; }
 .info-step { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
-.step-n { width: 18px; height: 18px; background: rgba(37,99,235,0.12); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 900; flex-shrink: 0; margin-top: 1px; font-family: 'Barlow Condensed', sans-serif; }
-
-/* Section header */
-.section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
-.section-head-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
-.section-head-line { flex: 1; height: 1px; background: var(--border); }
-
+.step-n { width: 18px; height: 18px; background: rgba(212,175,55,0.1); color: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 900; flex-shrink: 0; margin-top: 1px; font-family: 'Barlow Condensed', sans-serif; }
+ 
+.section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); white-space: nowrap; opacity: 0.7; }
+.section-line { flex: 1; height: 1px; background: var(--border); }
+ 
 /* Channel cards */
 .ch-list { display: flex; flex-direction: column; gap: 1.25rem; }
-
-.ch-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 18px; overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: all 0.25s;
-}
-
-.ch-card:hover { box-shadow: var(--shadow-lg); border-color: rgba(37,99,235,0.15); }
-
-.ch-bar { height: 3px; background: var(--border); transition: background 0.4s; }
-.ch-card.live .ch-bar { background: linear-gradient(90deg, var(--accent), #60A5FA); }
-
-.ch-head-admin {
-  padding: 1.25rem 1.5rem 1.1rem;
-  display: flex; align-items: center; gap: 1.25rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.ch-num-admin {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.8rem; font-weight: 900;
-  color: var(--border); line-height: 1;
-  letter-spacing: -1px; flex-shrink: 0;
-  transition: all 0.3s; user-select: none;
-}
-
-.ch-card.live .ch-num-admin { color: var(--accent); opacity: 0.25; }
-
+ 
+.ch-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); transition: all 0.25s; }
+.ch-card:hover { box-shadow: var(--shadow-lg); border-color: rgba(212,175,55,0.2); }
+ 
+.ch-bar { height: 2px; background: var(--border); transition: background 0.4s; }
+.ch-card.live .ch-bar { background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold2)); }
+ 
+.ch-head-admin { padding: 1.25rem 1.5rem 1.1rem; display: flex; align-items: center; gap: 1.25rem; border-bottom: 1px solid var(--border); }
+ 
+.ch-num-admin { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; font-weight: 900; color: var(--border2); line-height: 1; letter-spacing: -1px; flex-shrink: 0; user-select: none; transition: all 0.3s; }
+.ch-card.live .ch-num-admin { color: var(--gold); opacity: 0.5; text-shadow: 0 0 20px rgba(212,175,55,0.3); }
+ 
 .ch-card-info { flex: 1; }
-.ch-card-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: 1px; text-transform: uppercase; }
+.ch-card-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); letter-spacing: 1px; text-transform: uppercase; }
 .ch-card-sub { font-size: 0.72rem; color: var(--muted); margin-top: 0.15rem; }
-
-.ch-status-pill {
-  display: flex; align-items: center; gap: 0.4rem;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
-  padding: 0.35rem 0.9rem; border-radius: 50px;
-  transition: all 0.3s;
-}
-
-.pill-live { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.22); color: var(--accent2); }
-.pill-off { background: var(--bg); border: 1px solid var(--border); color: var(--muted); }
+ 
+.ch-pill { display: flex; align-items: center; gap: 0.4rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; padding: 0.35rem 0.9rem; border-radius: 50px; transition: all 0.3s; }
+.pill-live { background: rgba(255,59,48,0.1); border: 1px solid rgba(255,59,48,0.25); color: var(--live); }
+.pill-off { background: var(--bg3); border: 1px solid var(--border); color: var(--muted); }
 .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .pill-dot.anim { animation: blink 1s infinite; }
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.25}}
-
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+ 
 .ch-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
-
+ 
 .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
 .form-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-.form-input { background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem; color: var(--text); font-family: 'Tajawal', sans-serif; font-size: 0.88rem; width: 100%; transition: all 0.2s; }
-.form-input:focus { outline: none; border-color: var(--accent); background: white; box-shadow: 0 0 0 3px rgba(37,99,235,0.08); }
-.form-input::placeholder { color: var(--muted); opacity: 0.6; }
+.form-input { background: var(--bg3); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem; color: var(--white); font-family: 'Tajawal', sans-serif; font-size: 0.88rem; width: 100%; transition: all 0.2s; }
+.form-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.08); }
+.form-input::placeholder { color: var(--muted); opacity: 0.5; }
 .form-hint { font-size: 0.7rem; color: var(--muted); margin-top: 0.25rem; }
-
-.ch-foot-admin {
-  padding: 1rem 1.5rem;
-  border-top: 1px solid var(--border);
-  background: var(--bg);
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 0.75rem;
-}
-
+ 
+.ch-foot-admin { padding: 1rem 1.5rem; border-top: 1px solid var(--border); background: var(--bg2); display: flex; align-items: center; justify-content: space-between; }
 .btn-del { display: flex; align-items: center; gap: 0.4rem; background: transparent; border: 1.5px solid var(--border); color: var(--muted); padding: 0.48rem 1rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-.btn-del:hover { border-color: rgba(239,68,68,0.3); color: var(--accent2); background: rgba(239,68,68,0.04); }
-
-.btn-save-ch { display: flex; align-items: center; gap: 0.4rem; background: var(--accent); color: white; border: none; padding: 0.52rem 1.4rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.82rem; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
-.btn-save-ch:hover { background: #1D4ED8; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,99,235,0.3); }
-
-/* Toast */
-.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--text); color: white; border-radius: 50px; padding: 0.85rem 1.75rem; font-size: 0.85rem; font-weight: 700; box-shadow: 0 20px 60px rgba(0,0,0,0.2); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); z-index: 999; white-space: nowrap; }
+.btn-del:hover { border-color: rgba(255,59,48,0.3); color: var(--live); }
+.btn-save-ch { display: flex; align-items: center; gap: 0.4rem; background: linear-gradient(135deg, var(--gold), var(--gold3)); color: #000; border: none; padding: 0.52rem 1.4rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.82rem; font-weight: 900; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(212,175,55,0.25); }
+.btn-save-ch:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(212,175,55,0.35); }
+ 
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); border-radius: 50px; padding: 0.85rem 1.75rem; font-size: 0.85rem; font-weight: 700; box-shadow: var(--shadow-lg); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); z-index: 999; white-space: nowrap; }
 .toast.show { transform: translateX(-50%) translateY(0); }
-.toast.err { background: var(--accent2); }
-.toast.ok { background: var(--green); }
-
+.toast.ok { background: linear-gradient(135deg, var(--gold), var(--gold3)); color: #000; }
+.toast.err { background: var(--live); color: white; }
+ 
 @media(max-width:640px){
   .topbar{padding:0 1.25rem}
   .main{padding:1.5rem 1.25rem}
   .top-badge{display:none}
-  .ch-head-admin{gap:0.75rem}
-  .ch-num-admin{font-size:2rem}
 }
 </style>
 </head>
 <body>
-
+ 
 <!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
     <div class="login-icon">🔐</div>
     <div class="login-title">Kemo<span>Sports</span></div>
-    <div class="login-sub">أدخل كلمة المرور للوصول<br>للوحة التحكم</div>
-    <div class="login-group">
-      <label class="login-label">كلمة المرور</label>
-      <div class="login-input-wrap">
-        <input class="login-input" id="passInput" type="password"
-          placeholder="••••••••••••"
-          onkeydown="if(event.key==='Enter')doLogin()">
-        <button class="toggle-pass" onclick="togglePass()" id="toggleBtn">👁️</button>
-      </div>
+    <div class="login-sub">أدخل كلمة المرور للوصول للوحة التحكم</div>
+    <label class="login-label">كلمة المرور</label>
+    <div class="login-input-wrap">
+      <input class="login-input" id="passInput" type="password"
+        placeholder="••••••••••••"
+        onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="toggle-pass" onclick="togglePass()" id="toggleBtn">👁️</button>
     </div>
     <button class="login-btn" onclick="doLogin()">دخول ←</button>
-    <div class="login-error" id="loginError">❌ كلمة المرور غلط، حاول مرة ثانية</div>
-    <div class="login-note">KemoSports Admin Panel · للمسؤولين فقط</div>
+    <div class="login-error" id="loginError">❌ كلمة المرور غلط</div>
+    <div class="login-note">KemoSports Admin · للمسؤولين فقط</div>
   </div>
 </div>
-
+ 
 <!-- ADMIN -->
 <div class="admin-panel" id="adminPanel">
   <div class="topbar">
-    <div class="top-logo">
-      Kemo<span>Sports</span>
-      <div class="top-badge">ADMIN</div>
-    </div>
+    <div class="top-logo">Kemo<span>Sports</span> <div class="top-badge">ADMIN</div></div>
     <div class="top-actions">
       <button class="btn-sm danger" onclick="logout()">🚪 خروج</button>
-      <button class="btn-sm" onclick="window.open('index.html','_blank')">🌐 عرض الموقع</button>
+      <button class="btn-sm" onclick="window.open('index.html','_blank')">🌐 الموقع</button>
       <button class="btn-sm primary" onclick="saveAll()">✓ حفظ الكل</button>
     </div>
   </div>
-
+ 
   <div class="main">
     <div class="page-label">⚽ إدارة القنوات</div>
     <div class="page-title">لوحة التحكم</div>
-    <div class="page-sub">تحكم في كل قناة بشكل مستقل. أي تغيير بيظهر فوراً للزوار بدون أي تأثير على باقي القنوات.</div>
-
+    <div class="page-sub">كل قناة مستقلة تماماً — حفظ أي قناة لا يؤثر على الباقيات أبداً.</div>
+ 
     <div class="info-box">
-      <div class="info-box-icon">💡</div>
+      <div class="info-icon">💡</div>
       <div>
-        <div class="info-box-title">كيف تضيف رابط البث؟</div>
-        <div class="info-box-steps">
+        <div class="info-title">كيف تضيف رابط البث؟</div>
+        <div class="info-steps">
           <div class="info-step"><div class="step-n">1</div>انسخ رابط البث من المصدر</div>
           <div class="info-step"><div class="step-n">2</div>حطه في خانة "رابط البث" للقناة المطلوبة</div>
-          <div class="info-step"><div class="step-n">3</div>اضغط "حفظ القناة" وبيظهر فوراً ✅</div>
+          <div class="info-step"><div class="step-n">3</div>اضغط "حفظ" — بيظهر فوراً للزوار ✅</div>
         </div>
       </div>
     </div>
-
+ 
     <div class="section-head">
-      <div class="section-head-label">القنوات التسع</div>
-      <div class="section-head-line"></div>
+      <div class="section-label">القنوات التسع</div>
+      <div class="section-line"></div>
     </div>
-
+ 
     <div class="ch-list" id="list"></div>
   </div>
 </div>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
+ 
   const firebaseConfig = {
     apiKey: "AIzaSyCT6trRLMclBxdje_UrL-_P2ej54YkdzKA",
     authDomain: "kemosports-88cfc.firebaseapp.com",
@@ -297,14 +248,13 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
     messagingSenderId: "131859386408",
     appId: "1:131859386408:web:5902546120d7b9d4b6a51d"
   };
-
+ 
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const PASS = 'M404698698m$';
   const TOTAL = 9;
   let channels = Array.from({length: TOTAL}, () => ({}));
-
-  // AUTH
+ 
   window.doLogin = function() {
     if (document.getElementById('passInput').value === PASS) {
       document.getElementById('loginScreen').style.display = 'none';
@@ -317,20 +267,19 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
       setTimeout(() => err.classList.remove('show'), 3000);
     }
   };
-
+ 
   window.logout = function() {
     document.getElementById('adminPanel').style.display = 'none';
     document.getElementById('loginScreen').style.display = 'flex';
     document.getElementById('passInput').value = '';
   };
-
+ 
   window.togglePass = function() {
     const inp = document.getElementById('passInput');
-    const btn = document.getElementById('toggleBtn');
     inp.type = inp.type === 'password' ? 'text' : 'password';
-    btn.textContent = inp.type === 'password' ? '👁️' : '🙈';
+    document.getElementById('toggleBtn').textContent = inp.type === 'password' ? '👁️' : '🙈';
   };
-
+ 
   function loadData() {
     onValue(ref(db, 'channels'), (snapshot) => {
       const data = snapshot.val() || {};
@@ -338,7 +287,7 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
       render();
     });
   }
-
+ 
   function render() {
     document.getElementById('list').innerHTML = channels.map((ch, i) => {
       const on = ch && ch.url && ch.url.trim();
@@ -352,7 +301,7 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
             <div class="ch-card-name">Channel Kemo ${i + 1}</div>
             <div class="ch-card-sub">البث المباشر · الموقع الرئيسي</div>
           </div>
-          <div class="ch-status-pill ${on ? 'pill-live' : 'pill-off'}" id="status_${i}">
+          <div class="ch-pill ${on ? 'pill-live' : 'pill-off'}" id="status_${i}">
             <div class="pill-dot ${on ? 'anim' : ''}"></div>
             ${on ? 'LIVE' : 'OFF'}
           </div>
@@ -368,7 +317,7 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
             <label class="form-label">رابط البث</label>
             <input class="form-input" id="url_${i}"
               value="${(ch && ch.url) || ''}"
-              placeholder="https://example.com/live/stream">
+              placeholder="https://example.com/live">
             <div class="form-hint">الصق رابط البث المباشر هنا</div>
           </div>
           <div class="form-group">
@@ -379,14 +328,13 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
           </div>
         </div>
         <div class="ch-foot-admin">
-          <button class="btn-del" onclick="clearOne(${i})">🗑️ مسح القناة</button>
+          <button class="btn-del" onclick="clearOne(${i})">🗑️ مسح</button>
           <button class="btn-save-ch" onclick="saveOne(${i})">✓ حفظ القناة ${i + 1}</button>
         </div>
       </div>`;
     }).join('');
   }
-
-  // Save single channel independently
+ 
   window.saveOne = async function(i) {
     const ch = {
       title: document.getElementById(`tit_${i}`).value.trim(),
@@ -396,27 +344,23 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
     try {
       await set(ref(db, `channels/${i}`), ch);
       channels[i] = ch;
-      showToast(`✅ Channel Kemo ${i + 1} — تم الحفظ!`, 'ok');
+      showToast(`✓ Channel Kemo ${i + 1} — تم الحفظ`, 'ok');
     } catch(e) {
-      showToast('❌ خطأ في الحفظ، حاول مرة ثانية', 'err');
+      showToast('❌ خطأ في الحفظ', 'err');
     }
   };
-
-  // Clear single channel independently
+ 
   window.clearOne = async function(i) {
     try {
       await set(ref(db, `channels/${i}`), {});
       channels[i] = {};
-      document.getElementById(`tit_${i}`).value = '';
-      document.getElementById(`url_${i}`).value = '';
-      document.getElementById(`des_${i}`).value = '';
+      ['tit','url','des'].forEach(f => document.getElementById(`${f}_${i}`).value = '');
       showToast(`🗑️ Channel Kemo ${i + 1} — تم المسح`, 'err');
     } catch(e) {
-      showToast('❌ خطأ، حاول مرة ثانية', 'err');
+      showToast('❌ خطأ', 'err');
     }
   };
-
-  // Save all channels
+ 
   window.saveAll = async function() {
     try {
       for (let i = 0; i < TOTAL; i++) {
@@ -428,12 +372,12 @@ body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--t
         await set(ref(db, `channels/${i}`), ch);
         channels[i] = ch;
       }
-      showToast('✅ تم حفظ جميع القنوات التسع!', 'ok');
+      showToast('✓ تم حفظ جميع القنوات التسع!', 'ok');
     } catch(e) {
-      showToast('❌ خطأ في الحفظ، حاول مرة ثانية', 'err');
+      showToast('❌ خطأ في الحفظ', 'err');
     }
   };
-
+ 
   function showToast(msg, type = '') {
     const t = document.getElementById('toast');
     t.textContent = msg;
