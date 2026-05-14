@@ -758,26 +758,10 @@
     setTimeout(() => loading.classList.add('hidden'), 600);
   }, (error) => {
     console.error(error);
-    // Render demo cards when Firebase is unavailable (preview mode)
-    const demoData = [
-      { title: 'بيلسا vs ريال مدريد', url: 'https://www.youtube.com/embed/live_stream', description: 'دوري أبطال أوروبا — الدور ربع النهائي', thumbnail: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80' },
-      { title: 'مانشستر سيتي vs بايرن', url: 'https://www.youtube.com/embed/live_stream', description: 'UEFA Champions League 2026', thumbnail: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80' },
-      { title: 'برشلونة vs PSG', url: 'https://www.youtube.com/embed/live_stream', description: 'نصف نهائي دوري أبطال أوروبا', thumbnail: 'https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=600&q=80' },
-      { title: 'الهلال vs الاتحاد', url: 'https://www.youtube.com/embed/live_stream', description: 'الدوري السعودي للمحترفين', thumbnail: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=600&q=80' },
-      { title: 'ليفربول vs أرسنال', url: 'https://www.youtube.com/embed/live_stream', description: 'الدوري الإنجليزي الممتاز', thumbnail: 'https://images.unsplash.com/photo-1551958219-acbc630e2914?w=600&q=80' },
-      { title: 'إنتر ميلان vs يوفنتوس', url: 'https://www.youtube.com/embed/live_stream', description: 'الدوري الإيطالي — ديربي ميلانو', thumbnail: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=600&q=80' },
-      { title: 'باريس vs ليون', url: '', description: 'الدوري الفرنسي', thumbnail: '' },
-      { title: 'أتليتيكو vs سيفيلا', url: '', description: 'الدوري الإسباني', thumbnail: '' },
-      { title: 'دورتموند vs بايرن', url: '', description: 'الدوري الألماني', thumbnail: '' },
-    ];
+    // Render empty cards on error
     let html = '';
-    let liveCount = 0;
-    for (let i = 0; i < TOTAL; i++) {
-      if (demoData[i].url) liveCount++;
-      html += buildCard(i, demoData[i]);
-    }
+    for (let i = 0; i < TOTAL; i++) html += buildCard(i, {});
     grid.innerHTML = html;
-    document.getElementById('liveCount').textContent = `${liveCount} قنوات مباشرة`;
     loading.classList.add('hidden');
   });
 </script>
