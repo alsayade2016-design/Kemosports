@@ -1,390 +1,239 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>KemoSports — لوحة التحكم</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Syne:wght@700;800&family=Barlow+Condensed:wght@600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet"/>
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
- 
-:root {
-  --bg: #0A0A0A;
-  --bg2: #111111;
-  --bg3: #1A1A1A;
-  --card: #141414;
-  --border: #2A2A2A;
-  --border2: #333333;
-  --gold: #D4AF37;
-  --gold2: #F0C040;
-  --gold3: #B8960C;
-  --white: #FFFFFF;
-  --text: #F0EDE8;
-  --muted: #666666;
-  --live: #FF3B30;
-  --green: #10B981;
-  --shadow: 0 4px 30px rgba(0,0,0,0.5);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,0.7);
-}
- 
-body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
- 
-/* ── LOGIN ── */
-.login-screen {
-  min-height: 100vh; display: flex;
-  align-items: center; justify-content: center; padding: 2rem;
-  background: radial-gradient(ellipse at top, #1a1a1a 0%, #0A0A0A 60%);
-}
- 
-.login-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 3rem 2.5rem;
-  max-width: 420px; width: 100%;
-  text-align: center;
-  box-shadow: var(--shadow-lg);
-  animation: fadeUp 0.6s ease-out both;
-  position: relative; overflow: hidden;
-}
- 
-.login-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold2), var(--gold));
-}
- 
-@keyframes fadeUp { from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)} }
- 
-.login-icon {
-  width: 72px; height: 72px;
-  background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));
-  border: 1px solid rgba(212,175,55,0.2);
-  border-radius: 20px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem; margin: 0 auto 1.5rem;
-  box-shadow: 0 8px 24px rgba(212,175,55,0.1);
-}
- 
-.login-title { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--white); margin-bottom: 0.4rem; }
-.login-title span { color: var(--gold); }
-.login-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
- 
-.login-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; text-align: right; margin-bottom: 0.5rem; }
-.login-input-wrap { position: relative; margin-bottom: 1.25rem; }
-.login-input { width: 100%; background: var(--bg3); border: 1.5px solid var(--border2); border-radius: 12px; padding: 0.9rem 1rem 0.9rem 3rem; color: var(--white); font-family: 'Tajawal', sans-serif; font-size: 1rem; letter-spacing: 3px; transition: all 0.2s; text-align: center; }
-.login-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.1); }
-.login-input::placeholder { letter-spacing: 1px; color: var(--muted); opacity: 0.5; font-size: 0.85rem; }
-.toggle-pass { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--muted); }
- 
-.login-btn { width: 100%; background: linear-gradient(135deg, var(--gold), var(--gold3)); color: #000; border: none; padding: 0.95rem; border-radius: 12px; font-family: 'Tajawal', sans-serif; font-size: 1rem; font-weight: 900; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px rgba(212,175,55,0.3); margin-bottom: 1rem; letter-spacing: 1px; }
-.login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,175,55,0.4); }
-.login-error { background: rgba(255,59,48,0.08); border: 1px solid rgba(255,59,48,0.2); color: var(--live); padding: 0.65rem 1rem; border-radius: 10px; font-size: 0.82rem; font-weight: 600; display: none; margin-bottom: 0.5rem; }
-.login-error.show { display: block; }
-.login-note { font-size: 0.72rem; color: var(--muted); margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
- 
-/* ── ADMIN ── */
-.admin-panel { display: none; }
- 
-.topbar {
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  padding: 0 2.5rem; height: 66px;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 50;
-}
- 
-.top-logo { display: flex; align-items: center; gap: 0.75rem; font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--white); }
-.top-logo span { color: var(--gold); }
-.top-badge { background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.2); color: var(--gold); font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 50px; letter-spacing: 1.5px; }
- 
-.top-actions { display: flex; gap: 0.6rem; }
- 
-.btn-sm { display: flex; align-items: center; gap: 0.4rem; padding: 0.48rem 1rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1.5px solid var(--border2); background: var(--bg3); color: var(--muted); }
-.btn-sm:hover { border-color: var(--border); color: var(--text); }
-.btn-sm.danger:hover { border-color: rgba(255,59,48,0.3); color: var(--live); }
-.btn-sm.primary { background: linear-gradient(135deg, var(--gold), var(--gold3)); color: #000; border-color: transparent; font-weight: 900; box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
-.btn-sm.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(212,175,55,0.4); }
- 
-.main { max-width: 960px; margin: 0 auto; padding: 2.5rem 2rem; }
- 
-.page-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; opacity: 0.8; }
-.page-title { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--white); letter-spacing: -0.5px; margin-bottom: 0.3rem; }
-.page-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 2.5rem; line-height: 1.7; }
- 
-.info-box { background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.12); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem; display: flex; gap: 1rem; }
-.info-icon { font-size: 1.3rem; flex-shrink: 0; }
-.info-title { font-size: 0.82rem; font-weight: 800; color: var(--gold); margin-bottom: 0.4rem; }
-.info-steps { display: flex; flex-direction: column; gap: 0.3rem; }
-.info-step { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
-.step-n { width: 18px; height: 18px; background: rgba(212,175,55,0.1); color: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 900; flex-shrink: 0; margin-top: 1px; font-family: 'Barlow Condensed', sans-serif; }
- 
-.section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-.section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); white-space: nowrap; opacity: 0.7; }
-.section-line { flex: 1; height: 1px; background: var(--border); }
- 
-/* Channel cards */
-.ch-list { display: flex; flex-direction: column; gap: 1.25rem; }
- 
-.ch-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); transition: all 0.25s; }
-.ch-card:hover { box-shadow: var(--shadow-lg); border-color: rgba(212,175,55,0.2); }
- 
-.ch-bar { height: 2px; background: var(--border); transition: background 0.4s; }
-.ch-card.live .ch-bar { background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold2)); }
- 
-.ch-head-admin { padding: 1.25rem 1.5rem 1.1rem; display: flex; align-items: center; gap: 1.25rem; border-bottom: 1px solid var(--border); }
- 
-.ch-num-admin { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; font-weight: 900; color: var(--border2); line-height: 1; letter-spacing: -1px; flex-shrink: 0; user-select: none; transition: all 0.3s; }
-.ch-card.live .ch-num-admin { color: var(--gold); opacity: 0.5; text-shadow: 0 0 20px rgba(212,175,55,0.3); }
- 
-.ch-card-info { flex: 1; }
-.ch-card-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); letter-spacing: 1px; text-transform: uppercase; }
-.ch-card-sub { font-size: 0.72rem; color: var(--muted); margin-top: 0.15rem; }
- 
-.ch-pill { display: flex; align-items: center; gap: 0.4rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; padding: 0.35rem 0.9rem; border-radius: 50px; transition: all 0.3s; }
-.pill-live { background: rgba(255,59,48,0.1); border: 1px solid rgba(255,59,48,0.25); color: var(--live); }
-.pill-off { background: var(--bg3); border: 1px solid var(--border); color: var(--muted); }
-.pill-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.pill-dot.anim { animation: blink 1s infinite; }
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
- 
-.ch-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
- 
-.form-group { display: flex; flex-direction: column; gap: 0.45rem; }
-.form-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-.form-input { background: var(--bg3); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem; color: var(--white); font-family: 'Tajawal', sans-serif; font-size: 0.88rem; width: 100%; transition: all 0.2s; }
-.form-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.08); }
-.form-input::placeholder { color: var(--muted); opacity: 0.5; }
-.form-hint { font-size: 0.7rem; color: var(--muted); margin-top: 0.25rem; }
- 
-.ch-foot-admin { padding: 1rem 1.5rem; border-top: 1px solid var(--border); background: var(--bg2); display: flex; align-items: center; justify-content: space-between; }
-.btn-del { display: flex; align-items: center; gap: 0.4rem; background: transparent; border: 1.5px solid var(--border); color: var(--muted); padding: 0.48rem 1rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-.btn-del:hover { border-color: rgba(255,59,48,0.3); color: var(--live); }
-.btn-save-ch { display: flex; align-items: center; gap: 0.4rem; background: linear-gradient(135deg, var(--gold), var(--gold3)); color: #000; border: none; padding: 0.52rem 1.4rem; border-radius: 8px; font-family: 'Tajawal', sans-serif; font-size: 0.82rem; font-weight: 900; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(212,175,55,0.25); }
-.btn-save-ch:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(212,175,55,0.35); }
- 
-.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); border-radius: 50px; padding: 0.85rem 1.75rem; font-size: 0.85rem; font-weight: 700; box-shadow: var(--shadow-lg); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); z-index: 999; white-space: nowrap; }
-.toast.show { transform: translateX(-50%) translateY(0); }
-.toast.ok { background: linear-gradient(135deg, var(--gold), var(--gold3)); color: #000; }
-.toast.err { background: var(--live); color: white; }
- 
-@media(max-width:640px){
-  .topbar{padding:0 1.25rem}
-  .main{padding:1.5rem 1.25rem}
-  .top-badge{display:none}
-}
+:root{--bg:#080808;--surface:#111;--card:#161616;--border:#222;--red:#E50914;--red-glow:rgba(229,9,20,.3);--text:#eee;--muted:#777;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;min-height:100vh;}
+
+/* login */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.login-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:40px;width:100%;max-width:380px;text-align:center;}
+.login-logo{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--red);letter-spacing:3px;margin-bottom:4px;}
+.login-logo span{color:#fff;}
+.login-sub{font-size:12px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:28px;}
+.login-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:12px 16px;color:#fff;font-family:'Tajawal',sans-serif;font-size:15px;margin-bottom:12px;outline:none;transition:border-color .2s;}
+.login-input:focus{border-color:var(--red);}
+.login-btn{width:100%;background:var(--red);color:#fff;border:none;border-radius:4px;padding:13px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;letter-spacing:3px;cursor:pointer;transition:background .2s;}
+.login-btn:hover{background:#ff1a1a;}
+.login-err{color:var(--red);font-size:13px;margin-top:8px;display:none;}
+
+/* dashboard */
+.dashboard{display:none;}
+header{display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:var(--surface);border-bottom:1px solid var(--border);}
+.h-logo{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;color:var(--red);letter-spacing:2px;}
+.h-logo span{color:#fff;}
+.h-right{display:flex;align-items:center;gap:12px;}
+.save-all-btn{background:var(--red);color:#fff;border:none;border-radius:4px;padding:8px 20px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;letter-spacing:2px;cursor:pointer;transition:all .2s;}
+.save-all-btn:hover{background:#ff1a1a;box-shadow:0 0 20px var(--red-glow);}
+.logout-btn{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:4px;padding:8px 16px;font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;}
+.logout-btn:hover{border-color:var(--red);color:var(--red);}
+
+.main{padding:28px 32px;max-width:1100px;margin:0 auto;}
+
+/* section */
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin:32px 0 14px;display:flex;align-items:center;gap:10px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* channel rows */
+.ch-row{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:10px;transition:border-color .2s;}
+.ch-row:hover{border-color:rgba(229,9,20,.3);}
+.ch-num{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:var(--red);margin-bottom:10px;text-transform:uppercase;}
+.ch-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ch-inputs.four{grid-template-columns:1fr 1fr 1fr 1fr;}
+@media(max-width:700px){.ch-inputs{grid-template-columns:1fr;}.ch-inputs.four{grid-template-columns:1fr 1fr;}}
+.field-label{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
+.ch-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:9px 12px;color:#fff;font-family:'Tajawal',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
+.ch-input:focus{border-color:var(--red);}
+.ch-save{margin-top:10px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:4px;padding:7px 16px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all .2s;}
+.ch-save:hover{border-color:var(--red);color:var(--red);}
+.ch-save.saved{border-color:#22c55e;color:#22c55e;}
+
+/* social section */
+.social-row{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:20px 18px;margin-bottom:10px;}
+.social-field{margin-bottom:16px;}
+.social-icon-label{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.social-icon-label svg{width:20px;height:20px;}
+.social-icon-label span{font-size:12px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:700;}
+.soc-wa{color:#25D366;}.soc-tt{color:#fff;}.soc-fb{color:#1877F2;}
+
+/* toast */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#22c55e;color:#fff;padding:10px 24px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;opacity:0;pointer-events:none;transition:opacity .3s;z-index:999;}
+.toast.show{opacity:1;}
 </style>
 </head>
 <body>
- 
-<!-- LOGIN -->
-<div class="login-screen" id="loginScreen">
-  <div class="login-card">
-    <div class="login-icon">🔐</div>
-    <div class="login-title">Kemo<span>Sports</span></div>
-    <div class="login-sub">أدخل كلمة المرور للوصول للوحة التحكم</div>
-    <label class="login-label">كلمة المرور</label>
-    <div class="login-input-wrap">
-      <input class="login-input" id="passInput" type="password"
-        placeholder="••••••••••••"
-        onkeydown="if(event.key==='Enter')doLogin()">
-      <button class="toggle-pass" onclick="togglePass()" id="toggleBtn">👁️</button>
-    </div>
-    <button class="login-btn" onclick="doLogin()">دخول ←</button>
-    <div class="login-error" id="loginError">❌ كلمة المرور غلط</div>
-    <div class="login-note">KemoSports Admin · للمسؤولين فقط</div>
+
+<!-- Login -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo">KEMO<span>SPORTS</span></div>
+    <div class="login-sub">لوحة التحكم</div>
+    <input class="login-input" type="password" id="passInput" placeholder="كلمة المرور" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">دخول</button>
+    <div class="login-err" id="loginErr">كلمة المرور غلط</div>
   </div>
 </div>
- 
-<!-- ADMIN -->
-<div class="admin-panel" id="adminPanel">
-  <div class="topbar">
-    <div class="top-logo">Kemo<span>Sports</span> <div class="top-badge">ADMIN</div></div>
-    <div class="top-actions">
-      <button class="btn-sm danger" onclick="logout()">🚪 خروج</button>
-      <button class="btn-sm" onclick="window.open('index.html','_blank')">🌐 الموقع</button>
-      <button class="btn-sm primary" onclick="saveAll()">✓ حفظ الكل</button>
+
+<!-- Dashboard -->
+<div class="dashboard" id="dashboard">
+  <header>
+    <div class="h-logo">KEMO<span>SPORTS</span> <span style="font-size:12px;color:var(--muted);letter-spacing:3px;font-weight:400">ADMIN</span></div>
+    <div class="h-right">
+      <button class="save-all-btn" onclick="saveAll()">حفظ الكل</button>
+      <button class="logout-btn" onclick="doLogout()">خروج</button>
     </div>
-  </div>
- 
+  </header>
+
   <div class="main">
-    <div class="page-label">⚽ إدارة القنوات</div>
-    <div class="page-title">لوحة التحكم</div>
-    <div class="page-sub">كل قناة مستقلة تماماً — حفظ أي قناة لا يؤثر على الباقيات أبداً.</div>
- 
-    <div class="info-box">
-      <div class="info-icon">💡</div>
-      <div>
-        <div class="info-title">كيف تضيف رابط البث؟</div>
-        <div class="info-steps">
-          <div class="info-step"><div class="step-n">1</div>انسخ رابط البث من المصدر</div>
-          <div class="info-step"><div class="step-n">2</div>حطه في خانة "رابط البث" للقناة المطلوبة</div>
-          <div class="info-step"><div class="step-n">3</div>اضغط "حفظ" — بيظهر فوراً للزوار ✅</div>
+
+    <!-- Channels -->
+    <div class="section-title">القنوات</div>
+    <div id="channelRows"></div>
+
+    <!-- Social -->
+    <div class="section-title">التواصل الاجتماعي</div>
+    <div class="social-row">
+      <div class="social-field">
+        <div class="social-icon-label">
+          <svg class="soc-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.523 5.845L0 24l6.335-1.509A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.007-1.371l-.36-.214-3.727.978.995-3.635-.234-.374A9.818 9.818 0 012.182 12C2.182 6.579 6.579 2.182 12 2.182S21.818 6.579 21.818 12 17.421 21.818 12 21.818z"/></svg>
+          <span>واتساب</span>
         </div>
+        <input class="ch-input" id="soc-whatsapp" placeholder="رقم الواتساب مثال: 966501234567"/>
+      </div>
+      <div class="social-field">
+        <div class="social-icon-label">
+          <svg class="soc-tt" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+          <span>تيك توك</span>
+        </div>
+        <input class="ch-input" id="soc-tiktok" placeholder="اسم المستخدم مثال: @kemosports"/>
+      </div>
+      <div class="social-field" style="margin-bottom:0">
+        <div class="social-icon-label">
+          <svg class="soc-fb" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span>فيسبوك</span>
+        </div>
+        <input class="ch-input" id="soc-facebook" placeholder="اسم الصفحة مثال: kemosports"/>
+      </div>
+      <div style="margin-top:16px">
+        <button class="ch-save" id="soc-save-btn" onclick="saveSocial()">حفظ التواصل</button>
       </div>
     </div>
- 
-    <div class="section-head">
-      <div class="section-label">القنوات التسع</div>
-      <div class="section-line"></div>
-    </div>
- 
-    <div class="ch-list" id="list"></div>
+
   </div>
 </div>
- 
+
 <div class="toast" id="toast"></div>
- 
+
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
- 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCT6trRLMclBxdje_UrL-_P2ej54YkdzKA",
-    authDomain: "kemosports-88cfc.firebaseapp.com",
-    databaseURL: "https://kemosports-88cfc-default-rtdb.firebaseio.com",
-    projectId: "kemosports-88cfc",
-    storageBucket: "kemosports-88cfc.firebasestorage.app",
-    messagingSenderId: "131859386408",
-    appId: "1:131859386408:web:5902546120d7b9d4b6a51d"
-  };
- 
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const PASS = 'M404698698m$';
-  const TOTAL = 9;
-  let channels = Array.from({length: TOTAL}, () => ({}));
- 
-  window.doLogin = function() {
-    if (document.getElementById('passInput').value === PASS) {
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('adminPanel').style.display = 'block';
-      loadData();
-    } else {
-      const err = document.getElementById('loginError');
-      err.classList.add('show');
-      document.getElementById('passInput').value = '';
-      setTimeout(() => err.classList.remove('show'), 3000);
-    }
-  };
- 
-  window.logout = function() {
-    document.getElementById('adminPanel').style.display = 'none';
-    document.getElementById('loginScreen').style.display = 'flex';
-    document.getElementById('passInput').value = '';
-  };
- 
-  window.togglePass = function() {
-    const inp = document.getElementById('passInput');
-    inp.type = inp.type === 'password' ? 'text' : 'password';
-    document.getElementById('toggleBtn').textContent = inp.type === 'password' ? '👁️' : '🙈';
-  };
- 
-  function loadData() {
-    onValue(ref(db, 'channels'), (snapshot) => {
-      const data = snapshot.val() || {};
-      channels = Array.from({length: TOTAL}, (_, i) => data[i] || data[String(i)] || {});
-      render();
-    });
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+const PASS = "kemo2026";
+const firebaseConfig = {
+  apiKey:"AIzaSyCT6trRLMclBxdje_UrL-_P2ej54YkdzKA",
+  authDomain:"kemosports-88cfc.firebaseapp.com",
+  databaseURL:"https://kemosports-88cfc-default-rtdb.firebaseio.com",
+  projectId:"kemosports-88cfc",
+  storageBucket:"kemosports-88cfc.firebasestorage.app",
+  messagingSenderId:"131859386408",
+  appId:"1:131859386408:web:5902546120d7b9d4b6a51d"
+};
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
+window.doLogin = function() {
+  const v = document.getElementById('passInput').value;
+  if(v === PASS) {
+    document.getElementById('loginWrap').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+    loadData();
+  } else {
+    document.getElementById('loginErr').style.display='block';
   }
- 
-  function render() {
-    document.getElementById('list').innerHTML = channels.map((ch, i) => {
-      const on = ch && ch.url && ch.url.trim();
-      const num = String(i + 1).padStart(2, '0');
-      return `
-      <div class="ch-card ${on ? 'live' : ''}" id="card_${i}">
-        <div class="ch-bar"></div>
-        <div class="ch-head-admin">
-          <div class="ch-num-admin">${num}</div>
-          <div class="ch-card-info">
-            <div class="ch-card-name">Channel Kemo ${i + 1}</div>
-            <div class="ch-card-sub">البث المباشر · الموقع الرئيسي</div>
-          </div>
-          <div class="ch-pill ${on ? 'pill-live' : 'pill-off'}" id="status_${i}">
-            <div class="pill-dot ${on ? 'anim' : ''}"></div>
-            ${on ? 'LIVE' : 'OFF'}
-          </div>
-        </div>
-        <div class="ch-body">
-          <div class="form-group">
-            <label class="form-label">عنوان المباراة</label>
-            <input class="form-input" id="tit_${i}"
-              value="${(ch && ch.title) || ''}"
-              placeholder="مثال: الهلال ضد النصر">
-          </div>
-          <div class="form-group">
-            <label class="form-label">رابط البث</label>
-            <input class="form-input" id="url_${i}"
-              value="${(ch && ch.url) || ''}"
-              placeholder="https://example.com/live">
-            <div class="form-hint">الصق رابط البث المباشر هنا</div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">وصف المباراة</label>
-            <input class="form-input" id="des_${i}"
-              value="${(ch && ch.desc) || ''}"
-              placeholder="مثال: دوري روشن · الجولة 28 · الرياض">
-          </div>
-        </div>
-        <div class="ch-foot-admin">
-          <button class="btn-del" onclick="clearOne(${i})">🗑️ مسح</button>
-          <button class="btn-save-ch" onclick="saveOne(${i})">✓ حفظ القناة ${i + 1}</button>
-        </div>
-      </div>`;
-    }).join('');
+};
+window.doLogout = function() {
+  document.getElementById('loginWrap').style.display='flex';
+  document.getElementById('dashboard').style.display='none';
+};
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2000);
+}
+
+// Build channel rows
+const TOTAL = 9;
+function buildRows() {
+  const container = document.getElementById('channelRows');
+  let html = '';
+  for(let i=0;i<TOTAL;i++){
+    html += `<div class="ch-row">
+      <div class="ch-num">قناة ${i+1}</div>
+      <div class="ch-inputs four">
+        <div><div class="field-label">عنوان المباراة</div><input class="ch-input" id="t${i}" placeholder="مثال: ريال مدريد vs برشلونة"/></div>
+        <div><div class="field-label">رابط البث</div><input class="ch-input" id="u${i}" placeholder="https://..."/></div>
+        <div><div class="field-label">وصف قصير</div><input class="ch-input" id="d${i}" placeholder="الدوري الإسباني"/></div>
+        <div><div class="field-label">رابط الصورة (thumbnail)</div><input class="ch-input" id="th${i}" placeholder="https://..."/></div>
+      </div>
+      <button class="ch-save" id="sb${i}" onclick="saveCh(${i})">حفظ القناة ${i+1}</button>
+    </div>`;
   }
- 
-  window.saveOne = async function(i) {
-    const ch = {
-      title: document.getElementById(`tit_${i}`).value.trim(),
-      url: document.getElementById(`url_${i}`).value.trim(),
-      desc: document.getElementById(`des_${i}`).value.trim(),
-    };
-    try {
-      await set(ref(db, `channels/${i}`), ch);
-      channels[i] = ch;
-      showToast(`✓ Channel Kemo ${i + 1} — تم الحفظ`, 'ok');
-    } catch(e) {
-      showToast('❌ خطأ في الحفظ', 'err');
+  container.innerHTML = html;
+}
+
+function loadData() {
+  buildRows();
+  onValue(ref(db,'channels'),(snap)=>{
+    const data = snap.val()||{};
+    for(let i=0;i<TOTAL;i++){
+      const ch=data[i]||{};
+      document.getElementById(`t${i}`).value  = ch.title||'';
+      document.getElementById(`u${i}`).value  = ch.url||'';
+      document.getElementById(`d${i}`).value  = ch.description||'';
+      document.getElementById(`th${i}`).value = ch.thumbnail||'';
     }
-  };
- 
-  window.clearOne = async function(i) {
-    try {
-      await set(ref(db, `channels/${i}`), {});
-      channels[i] = {};
-      ['tit','url','des'].forEach(f => document.getElementById(`${f}_${i}`).value = '');
-      showToast(`🗑️ Channel Kemo ${i + 1} — تم المسح`, 'err');
-    } catch(e) {
-      showToast('❌ خطأ', 'err');
-    }
-  };
- 
-  window.saveAll = async function() {
-    try {
-      for (let i = 0; i < TOTAL; i++) {
-        const ch = {
-          title: document.getElementById(`tit_${i}`).value.trim(),
-          url: document.getElementById(`url_${i}`).value.trim(),
-          desc: document.getElementById(`des_${i}`).value.trim(),
-        };
-        await set(ref(db, `channels/${i}`), ch);
-        channels[i] = ch;
-      }
-      showToast('✓ تم حفظ جميع القنوات التسع!', 'ok');
-    } catch(e) {
-      showToast('❌ خطأ في الحفظ', 'err');
-    }
-  };
- 
-  function showToast(msg, type = '') {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = `toast ${type} show`;
-    clearTimeout(window._tt);
-    window._tt = setTimeout(() => t.classList.remove('show'), 3500);
-  }
+  },{onlyOnce:true});
+  onValue(ref(db,'social'),(snap)=>{
+    const s=snap.val()||{};
+    document.getElementById('soc-whatsapp').value = s.whatsapp||'';
+    document.getElementById('soc-tiktok').value   = s.tiktok||'';
+    document.getElementById('soc-facebook').value = s.facebook||'';
+  },{onlyOnce:true});
+}
+
+window.saveCh = async function(i) {
+  const btn = document.getElementById(`sb${i}`);
+  await set(ref(db,`channels/${i}`),{
+    title:       document.getElementById(`t${i}`).value.trim(),
+    url:         document.getElementById(`u${i}`).value.trim(),
+    description: document.getElementById(`d${i}`).value.trim(),
+    thumbnail:   document.getElementById(`th${i}`).value.trim(),
+  });
+  btn.textContent='✓ تم الحفظ'; btn.classList.add('saved');
+  setTimeout(()=>{btn.textContent=`حفظ القناة ${i+1}`;btn.classList.remove('saved');},2000);
+};
+
+window.saveSocial = async function() {
+  const btn = document.getElementById('soc-save-btn');
+  await set(ref(db,'social'),{
+    whatsapp: document.getElementById('soc-whatsapp').value.trim(),
+    tiktok:   document.getElementById('soc-tiktok').value.trim(),
+    facebook: document.getElementById('soc-facebook').value.trim(),
+  });
+  btn.textContent='✓ تم الحفظ'; btn.classList.add('saved');
+  setTimeout(()=>{btn.textContent='حفظ التواصل';btn.classList.remove('saved');},2000);
+};
+
+window.saveAll = async function() {
+  for(let i=0;i<TOTAL;i++) await window.saveCh(i);
+  await window.saveSocial();
+  showToast('✓ تم حفظ كل شيء');
+};
 </script>
 </body>
 </html>
