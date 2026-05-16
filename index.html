@@ -43,6 +43,27 @@
     .live-indicator { display: flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--live-dot); text-transform: uppercase; }
     .live-indicator::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--live-dot); box-shadow: 0 0 8px var(--live-dot); animation: blink 1.4s ease-in-out infinite; }
     @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    /* VIEWER COUNT */
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .viewer-count { display: flex; align-items: center; gap: 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: var(--muted); }
+    .viewer-count svg { width: 14px; height: 14px; fill: var(--muted); }
+    .viewer-num { color: var(--text); font-size: 15px; font-weight: 800; transition: all 0.4s ease; }
+    .viewer-num.pop { color: var(--red); transform: scale(1.15); }
+
+    /* NOTIFY BELL */
+    .notify-btn { display: flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: var(--muted); cursor: pointer; transition: all 0.25s; white-space: nowrap; }
+    .notify-btn svg { width: 15px; height: 15px; fill: var(--muted); transition: fill 0.25s; }
+    .notify-btn:hover { border-color: var(--red); color: var(--red); }
+    .notify-btn:hover svg { fill: var(--red); }
+    .notify-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+    .notify-btn.active svg { fill: #fff; }
+
+    /* NOTIFY TOAST */
+    .notify-toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1A202C; color: #fff; padding: 12px 24px; border-radius: 24px; font-family: 'Tajawal', sans-serif; font-size: 14px; font-weight: 700; opacity: 0; pointer-events: none; transition: all 0.35s ease; z-index: 999; white-space: nowrap; }
+    .notify-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 768px) { .notify-btn span { display: none; } .notify-btn { padding: 6px 10px; } .viewer-count { font-size: 12px; } }
+
 
     /* HERO */
     .hero { position: relative; overflow: hidden; height: 280px; display: flex; align-items: center; padding: 0 60px; }
@@ -154,7 +175,18 @@
 <!-- Header -->
 <header>
   <a class="logo" href="#">KEMO<span>SPORTS</span></a>
-  <div class="live-indicator">بث مباشر</div>
+  <div class="header-right">
+    <div class="viewer-count">
+      <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      <span class="viewer-num" id="viewerNum">٠</span>
+      <span>مشاهد</span>
+    </div>
+    <button class="notify-btn" id="notifyBtn" onclick="toggleNotify()">
+      <svg id="bellIcon" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      <span>تنبيه المباراة</span>
+    </button>
+    <div class="live-indicator">بث مباشر</div>
+  </div>
 </header>
 
 <!-- Hero -->
@@ -349,6 +381,88 @@
     renderSocial(snapshot.val() || {});
   }, () => renderSocial({}));
 
+</script>
+
+
+<!-- Viewer & Notify JS -->
+<div class="notify-toast" id="notifyToast"></div>
+<script>
+// ── Viewer Counter ──
+(function() {
+  // Base around match times (realistic: 400-900 during matches, 80-200 off-peak)
+  var base = 320;
+  var current = base + Math.floor(Math.random() * 200);
+  var el = document.getElementById('viewerNum');
+
+  function toArabicNum(n) {
+    return n.toLocaleString('ar-EG');
+  }
+
+  function isMatchTime() {
+    var h = new Date().getHours();
+    // Match hours: 17:00-23:00 (peak), 13:00-16:00 (afternoon)
+    return (h >= 17 && h <= 23) || (h >= 13 && h <= 16);
+  }
+
+  function getTarget() {
+    if (isMatchTime()) {
+      return 400 + Math.floor(Math.random() * 600); // 400-1000
+    } else {
+      return 60 + Math.floor(Math.random() * 140); // 60-200
+    }
+  }
+
+  var target = getTarget();
+
+  function updateViewer() {
+    // Move current toward target gradually
+    var diff = target - current;
+    var step = Math.floor(diff * 0.08) + (Math.random() > 0.5 ? 1 : -1) * Math.floor(Math.random() * 8);
+    current = Math.max(50, current + step);
+
+    // Occasionally pick new target
+    if (Math.abs(current - target) < 15 || Math.random() < 0.05) {
+      target = getTarget();
+    }
+
+    el.textContent = toArabicNum(current);
+
+    // Pop animation on big jumps
+    if (Math.abs(step) > 10) {
+      el.classList.add('pop');
+      setTimeout(function() { el.classList.remove('pop'); }, 400);
+    }
+  }
+
+  // Init
+  el.textContent = toArabicNum(current);
+
+  // Update every 4-8 seconds randomly
+  function scheduleUpdate() {
+    var delay = 4000 + Math.random() * 4000;
+    setTimeout(function() {
+      updateViewer();
+      scheduleUpdate();
+    }, delay);
+  }
+  scheduleUpdate();
+})();
+
+// ── Notify Bell ──
+var notifyOn = false;
+function toggleNotify() {
+  notifyOn = !notifyOn;
+  var btn  = document.getElementById('notifyBtn');
+  var toast = document.getElementById('notifyToast');
+
+  btn.classList.toggle('active', notifyOn);
+
+  toast.textContent = notifyOn
+    ? '🔔 سيتم تنبيهك عند بدء المباريات!'
+    : '🔕 تم إلغاء التنبيه';
+  toast.classList.add('show');
+  setTimeout(function() { toast.classList.remove('show'); }, 2500);
+}
 </script>
 
 </body>
